@@ -1,5 +1,6 @@
 package account;
 
+/** Represents a bank account with a balance and transaction freeze state. */
 public class BankAccount {
     private double balance;
     private boolean isFrozen;
@@ -30,6 +31,7 @@ public class BankAccount {
         this.isFrozen = false;
     }
 
+    /** Deposits a positive amount unless the account is frozen. */
     public void deposit(double amount) {
         if (isFrozen) {
             System.out.println("Account is FROZEN. Unable to transact.");
@@ -47,6 +49,10 @@ public class BankAccount {
         System.out.printf("Current balance: %.2f%n", balance);
     }
 
+    /**
+     * Withdraws a positive amount unless the account is frozen and has sufficient
+     * balance.
+     */
     public void withdraw(double amount) {
         if (isFrozen) {
             System.out.println("Account is FROZEN. Unable to transact.");
@@ -70,6 +76,7 @@ public class BankAccount {
         System.out.printf("Current balance: %.2f%n", balance);
     }
 
+    /** Runs the bank account test cases. */
     public void main(String[] args) {
         BankAccount acc1 = new SavingsAccount("Test0");
 
