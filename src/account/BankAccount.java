@@ -76,7 +76,7 @@ public class BankAccount {
         System.out.printf("Current balance: %.2f%n", balance);
     }
 
-    /** Runs the bank account test cases. */
+    /** Runs the bank account test cases.  */
     public void main(String[] args) {
         BankAccount acc1 = new SavingsAccount("Test0");
 
