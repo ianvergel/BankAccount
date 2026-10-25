@@ -1,23 +1,21 @@
 package account;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/** Represents a bank account with a balance and transaction freeze state. */
+/**
+ * Represents a bank account with a balance, freeze state, and transaction
+ * history.
+ */
 public class BankAccount {
     private double balance;
     private boolean isFrozen;
     private List<Transaction> transactionHistory;
 
-    public BankAccount(double balance, boolean isFrozen) {
-        this.balance = balance;
-        this.isFrozen = isFrozen;
-        this.transactionHistory = new ArrayList<>();
-    }
-
     public BankAccount() {
         this.balance = 0.0;
         this.isFrozen = false;
+        this.transactionHistory = new ArrayList<>();
     }
 
     public double getBalance() {
@@ -36,15 +34,14 @@ public class BankAccount {
         this.isFrozen = false;
     }
 
-    /** Deposits a positive amount unless the account is frozen. */
     public void deposit(double amount) {
-        if (isFrozen) {
+        if (isFrozen()) {
             System.out.println("Account is FROZEN. Unable to transact.");
             return;
         }
 
         if (amount <= 0) {
-            System.out.println("Amount deposited: " + amount);
+            System.out.printf("Amount deposited: %.2f%n", amount);
             System.out.println("Invalid amount. Must be greater than 0");
             return;
         }
@@ -55,17 +52,13 @@ public class BankAccount {
         System.out.printf("Current balance: %.2f%n", balance);
     }
 
-    /**
-     * Withdraws a positive amount unless the account is frozen and has sufficient
-     * balance.
-     */
     public void withdraw(double amount) {
-        if (isFrozen) {
+        if (isFrozen()) {
             System.out.println("Account is FROZEN. Unable to transact.");
             return;
         }
 
-        System.out.println("Amount withdrawn: " + amount);
+        System.out.printf("Amount withdrawn: %.2f%n", amount);
 
         if (amount <= 0) {
             System.out.println("Invalid amount. Must be greater than 0");
@@ -83,12 +76,8 @@ public class BankAccount {
         System.out.printf("Current balance: %.2f%n", balance);
     }
 
-    public List<Transaction> getTransactionHistory(String type, double amount, LocalDateTime time_stamp) {
+    /** Returns the transaction history list. */
+    public List<Transaction> getTransactionHistory() {
         return transactionHistory;
-    }
-
-    /** Runs the bank account test cases.  */
-    public void main(String[] args) {
-        
     }
 }

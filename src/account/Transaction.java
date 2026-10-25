@@ -1,6 +1,7 @@
 package account;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Transaction {
     private String type;
@@ -17,27 +18,18 @@ public class Transaction {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public double getAmount() {
         return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     public LocalDateTime getTime_stamp() {
         return time_stamp;
     }
 
-    public void setTime_stamp(LocalDateTime time_stamp) {
-        this.time_stamp = time_stamp;
-    }
-
+    @Override
     public String toString() {
-        return "Transaction{" + "type='" + type + '\'' + ", amount=" + amount + ", time_stamp=" + time_stamp + '}';
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return "Transaction [type=" + type + ", amount=" + amount + ", time stamp=" + time_stamp.format(formatter)
+                + "]";
     }
 }

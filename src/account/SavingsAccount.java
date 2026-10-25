@@ -5,7 +5,6 @@ public class SavingsAccount extends BankAccount {
     private String ownerName;
 
     public SavingsAccount(String ownerName) {
-        super(0, false);
         this.ownerName = ownerName;
     }
 

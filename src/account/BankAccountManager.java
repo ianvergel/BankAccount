@@ -1,8 +1,11 @@
 package account;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * Manages multiple bank accounts using a Map and implements the Bank interface.
+ */
 public class BankAccountManager implements Bank {
     private static final int MAX_ACCOUNTS = 100;
     private Map<Integer, BankAccount> accounts;
@@ -13,45 +16,39 @@ public class BankAccountManager implements Bank {
         this.id = 0;
     }
 
-    @Override 
+    @Override
     public void addAccount(BankAccount account) {
         if (accounts.size() >= MAX_ACCOUNTS) {
             System.out.println("Maximum account limit of 100 reached. Unable to add account.");
             return;
         }
-        this.id = id++;
-        accounts.put(id, account);
+        int assignedId = this.id++;
+        accounts.put(assignedId, account);
+        System.out.println("Account added successfully with ID: " + assignedId);
     }
 
     @Override
     public BankAccount getAccount(int id) {
-        BankAccount account = accounts.get(id);
-        if (account != null) {
-            System.out.println("Account found with ID: " + id);
-        } else {
-            System.out.println("Account not found.");
-        }
-        return account;
+        return accounts.get(id);
     }
 
-    @Override 
+    @Override
     public void listAccounts() {
         if (accounts.isEmpty()) {
             System.out.println("No accounts available.");
             return;
         }
-        System.out.println("List of accounts:");
         for (Map.Entry<Integer, BankAccount> entry : accounts.entrySet()) {
             int accountId = entry.getKey();
             BankAccount account = entry.getValue();
-            
-            String ownerInfo = "";
+
+            String ownerName = "Unknown";
             if (account instanceof SavingsAccount savingsAcc) {
-                ownerInfo = ", Owner: " + savingsAcc.getOwnerName();
+                ownerName = savingsAcc.getOwnerName();
             }
 
-            System.out.printf("ID: %d%s, Balance: %.2f, Frozen: %b%n", 
-                accountId, ownerInfo, account.getBalance(), account.isFrozen());
+            System.out.printf("Account ID: %d, Account Name: %s, Balance: %.2f%n",
+                    accountId, ownerName, account.getBalance());
         }
     }
 }
