@@ -1,60 +1,76 @@
+import java.util.List;
+
 import account.BankAccount;
 import account.SavingsAccount;
 import account.Transaction;
 import account.BankAccountManager;
 
 public class App {
+
+    @FunctionalInterface
+    interface CheckedTransaction {
+        void execute() throws Exception;
+    }
+
+    private static void tryTransaction(CheckedTransaction action) {
+        try {
+            action.execute();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         BankAccount acc1 = new SavingsAccount("Test0");
+        BankAccountManager manager = new BankAccountManager();
 
         System.out.println("Activity 1 Test Cases");
         if (acc1 instanceof SavingsAccount savingsAcc) {
-            System.out.println
-            ("Account Owner: " + savingsAcc.getOwnerName() + ".");
+            System.out.println("Account Owner: " + savingsAcc.getOwnerName() + ".");
         }
 
-        // acc1.deposit(1000.125);
-        // acc1.deposit(0);
-        // acc1.deposit(-500);
-        // acc1.withdraw(500);
-        // acc1.withdraw(1500);
-        // acc1.withdraw(-100);
-        // acc1.freezeAccount();
-        // acc1.deposit(11500);
-        // acc1.withdraw(500);
-        // acc1.unfreezeAccount();
-        // acc1.withdraw(100);
+        tryTransaction(() -> acc1.deposit(1000.125));
+        tryTransaction(() -> acc1.deposit(0));
+        tryTransaction(() -> acc1.deposit(-500));
+        tryTransaction(() -> acc1.withdraw(500));
+        tryTransaction(() -> acc1.withdraw(1500));
+        tryTransaction(() -> acc1.withdraw(-100));
+
+        acc1.freezeAccount();
+        tryTransaction(() -> acc1.deposit(11500));
+        tryTransaction(() -> acc1.withdraw(500));
+        acc1.unfreezeAccount();
+
+        tryTransaction(() -> acc1.withdraw(100));
 
         System.out.println("\nActivity 2 Test Cases");
-        //2.1
+        // 2.1
         for (Transaction transaction : acc1.getTransactionHistory()) {
-        System.out.println(transaction);
+            System.out.println(transaction);
         }
 
-        //2.2
+        // 2.2
         BankAccountManager accM1 = new BankAccountManager();
         System.out.println("BankAccountManager created successfully.");
 
-        //2.3
+        // 2.3
         accM1.addAccount(acc1);
 
-        //2.4
+        // 2.4
         accM1.addAccount(new SavingsAccount("Test1"));
 
-        //2.5
+        // 2.5
         accM1.listAccounts();
 
-
-        System.out.println("\nActivity 3 Test Cases");
-        //3.1
+        System.out.println("\nActivity 3 Test Cases\n");
+        // 3.1
         try {
             acc1.deposit(-500);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
 
-        //3.2
+        // 3.2
         acc1.freezeAccount();
         try {
             acc1.deposit(11500);
@@ -62,24 +78,24 @@ public class App {
             System.out.println(e.getMessage());
         }
         acc1.unfreezeAccount();
-        
 
-        //3.3
+        // 3.3
         try {
             acc1.withdraw(-100);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
 
-        //3.4
+        // 3.4
         try {
             acc1.withdraw(1500);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            System.out.printf("Current balance: %.2f%n\n", acc1.getBalance());
         }
-    
-        //3.5
+
+        // 3.5
         acc1.freezeAccount();
         try {
             acc1.withdraw(500);
@@ -88,10 +104,22 @@ public class App {
         }
         acc1.unfreezeAccount();
 
-        //3.6
-        accM1.filterTransactionsAtOrAbove(200, acc1.getTransactionHistory());
+        // 3.6
+        acc1.deposit(1000.125);
+        acc1.withdraw(500.0);
+        acc1.withdraw(100.0);
 
-        //3.7
-        accM1.sortTransactionsByAmount(acc1.getTransactionHistory());
+        System.out.println("\nFiltering transactions at or above 200...");
+        List<Transaction> filtered = manager.filterTransactionsAtOrAbove(200, acc1.getTransactionHistory());
+        for (Transaction transaction : filtered) {
+            System.out.println(transaction);
+        }
+
+        // Test 3.7
+        System.out.println("\nSorting transactions by amount...");
+        List<Transaction> sorted = manager.sortTransactionsByAmount(acc1.getTransactionHistory());
+        for (Transaction transaction : sorted) {
+            System.out.println(transaction);
+        }
     }
 }
