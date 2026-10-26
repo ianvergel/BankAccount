@@ -16,6 +16,7 @@ public class BankAccountManager implements Bank {
         this.id = 0;
     }
 
+/** Adds an account to the accounts map with an id assigned to them starting at 0 */
     @Override
     public void addAccount(BankAccount account) {
         if (accounts.size() >= MAX_ACCOUNTS) {
@@ -32,6 +33,7 @@ public class BankAccountManager implements Bank {
         return accounts.get(id);
     }
 
+/** Return the list of all accounts with their ID, name, and balance*/
     @Override
     public void listAccounts() {
         if (accounts.isEmpty()) {
