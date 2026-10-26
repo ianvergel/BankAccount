@@ -3,6 +3,9 @@ package account;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/** Represents a transaction with a type, amount
+ * and a timestamp of the said transaction
+ */
 public class Transaction {
     private String type;
     private double amount;
@@ -26,6 +29,7 @@ public class Transaction {
         return time_stamp;
     }
 
+/** Formats the date to a proper format of year-month-day */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

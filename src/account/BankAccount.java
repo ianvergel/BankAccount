@@ -34,6 +34,10 @@ public class BankAccount {
         this.isFrozen = false;
     }
 
+/**
+ * Deposits a positive amount that is, only if the account is not Frozen
+ * and the amount is not lesser than or equal to 0.
+ */
     public void deposit(double amount) {
         if (isFrozen()) {
             System.out.println("Account is FROZEN. Unable to transact.");
@@ -51,7 +55,10 @@ public class BankAccount {
         System.out.printf("Amount deposited: %.2f%n", amount);
         System.out.printf("Current balance: %.2f%n", balance);
     }
-
+/**
+ * Withdraws a positive amount that is, only if the account is not Frozen
+ * and the balance is not lesser than the amount withdrawn.
+ */
     public void withdraw(double amount) {
         if (isFrozen()) {
             System.out.println("Account is FROZEN. Unable to transact.");
