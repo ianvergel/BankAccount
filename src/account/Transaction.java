@@ -29,11 +29,13 @@ public class Transaction {
         return time_stamp;
     }
 
-/** Formats the date to a proper format of year-month-day */
+    /** Formats the date to a proper format of year-month-day */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return "Transaction [type=" + type + ", amount=" + amount + ", time stamp=" + time_stamp.format(formatter)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern
+        ("yyyy-MM-dd HH:mm");
+        return "Transaction [type=" + type + ", amount=" +
+        amount + ", time stamp=" + time_stamp.format(formatter)
                 + "]";
     }
 }

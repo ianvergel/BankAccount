@@ -16,16 +16,18 @@ public class BankAccountManager implements Bank {
         this.id = 0;
     }
 
-/** Adds an account to the accounts map with an id assigned to them starting at 0 */
+    /** Adds an account to the accounts map with an id assigned to them starting at 0 */
     @Override
     public void addAccount(BankAccount account) {
         if (accounts.size() >= MAX_ACCOUNTS) {
-            System.out.println("Maximum account limit of 100 reached. Unable to add account.");
+            System.out.println
+            ("Maximum account limit of 100 reached.Unable to add account.");
             return;
         }
         int assignedId = this.id++;
         accounts.put(assignedId, account);
-        System.out.println("Account added successfully with ID: " + assignedId);
+        System.out.println
+        ("Account added successfully with ID: " + assignedId);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class BankAccountManager implements Bank {
         return accounts.get(id);
     }
 
-/** Return the list of all accounts with their ID, name, and balance*/
+    /** Return the list of all accounts with their ID, name, and balance*/
     @Override
     public void listAccounts() {
         if (accounts.isEmpty()) {
@@ -49,7 +51,8 @@ public class BankAccountManager implements Bank {
                 ownerName = savingsAcc.getOwnerName();
             }
 
-            System.out.printf("Account ID: %d, Account Name: %s, Balance: %.2f%n",
+            System.out.printf
+            ("Account ID: %d, Account Name: %s, Balance: %.2f%n",
                     accountId, ownerName, account.getBalance());
         }
     }

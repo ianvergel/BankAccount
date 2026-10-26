@@ -1,5 +1,6 @@
 import account.BankAccount;
 import account.SavingsAccount;
+import account.Transaction;
 import account.BankAccountManager;
 
 public class App {
@@ -8,7 +9,8 @@ public class App {
 
         System.out.println("Activity 1 Test Cases");
         if (acc1 instanceof SavingsAccount savingsAcc) {
-            System.out.println("Account Owner: " + savingsAcc.getOwnerName() + ".");
+            System.out.println
+            ("Account Owner: " + savingsAcc.getOwnerName() + ".");
         }
         acc1.deposit(1000.125);
         acc1.deposit(0);
@@ -26,7 +28,9 @@ public class App {
 
         // 2.1
         System.out.println("Test Case 1:");
-        System.out.println("Transaction history: " + acc1.getTransactionHistory());
+        for (Transaction transaction : acc1.getTransactionHistory()) {
+        System.out.println(transaction);
+}
 
         // 2.2
         System.out.println("\nTest Case 2:");
