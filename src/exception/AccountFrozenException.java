@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Thrown when a financial transaction is attempted on a frozen account.
+ */
 public class AccountFrozenException extends Exception {
     private String message;
 

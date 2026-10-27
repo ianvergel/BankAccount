@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Manages multiple bank accounts using a Map and implements the Bank interface.
+ * Manages multiple bank accounts using a Map
+ * and implements the Bank interface.
  */
 public class BankAccountManager implements Bank {
     private static final int MAX_ACCOUNTS = 100;
@@ -17,7 +18,9 @@ public class BankAccountManager implements Bank {
         this.id = 0;
     }
 
-    /** Adds an account to the accounts map with an id assigned to them starting at 0 */
+    /** Adds an account to the accounts map
+     * with an id assigned to them starting at 0.
+    */
     @Override
     public void addAccount(BankAccount account) {
         if (accounts.size() >= MAX_ACCOUNTS) {
@@ -36,7 +39,7 @@ public class BankAccountManager implements Bank {
         return accounts.get(id);
     }
 
-    /** Return the list of all accounts with their ID, name, and balance*/
+    /** Return the list of all accounts with their ID, name, and balance.*/
     @Override
     public void listAccounts() {
         if (accounts.isEmpty()) {
@@ -57,7 +60,10 @@ public class BankAccountManager implements Bank {
                     accountId, ownerName, account.getBalance());
         }
     }
-
+    /**
+     * Returns a list of transaction that are greater than
+     * or equal to the amount set.
+     */
     public List<Transaction>
     filterTransactionsAtOrAbove(double amount,List<Transaction> txList) {
         return txList.stream()
@@ -65,6 +71,9 @@ public class BankAccountManager implements Bank {
                 .toList();
     }
 
+    /**
+     * Returns a list of transactions in ascending order.
+     */
     public List<Transaction>
     sortTransactionsByAmount(List<Transaction> txList) {
         return txList.stream()

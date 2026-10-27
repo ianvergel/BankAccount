@@ -41,9 +41,11 @@ public class BankAccount {
      * Deposits a positive amount that is, only if the account is not Frozen
      * and the amount is not lesser than or equal to 0.
      */
-    public void deposit(double amount) throws AccountFrozenException, InvalidAmountException {
+    public void deposit(double amount)
+    throws AccountFrozenException,InvalidAmountException {
         if (isFrozen()) {
-            throw new AccountFrozenException("Account is FROZEN. Unable to transact.\n");
+            throw new AccountFrozenException
+            ("Account is FROZEN. Unable to transact.\n");
         }
 
         if (amount <= 0) {
@@ -63,14 +65,18 @@ public class BankAccount {
      * and the balance is not lesser than the amount withdrawn.
      */
     public void withdraw(double amount)
-            throws AccountFrozenException, InvalidAmountException, InsufficientFundsException {
+            throws AccountFrozenException, 
+            InvalidAmountException, 
+            InsufficientFundsException {
         if (isFrozen()) {
-            throw new AccountFrozenException("Account is FROZEN. Unable to transact.\n");
+            throw new AccountFrozenException
+            ("Account is FROZEN. Unable to transact.\n");
         }
 
         if (amount <= 0) {
             System.out.printf("Amount Withdrawn: %.2f%n", amount);
-            throw new InvalidAmountException("Invalid amount. Must be greater than 0.\n");
+            throw new InvalidAmountException
+            ("Invalid amount. Must be greater than 0.\n");
         }
 
         if (amount > balance) {

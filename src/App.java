@@ -7,11 +7,20 @@ import account.BankAccountManager;
 
 public class App {
 
+    /**
+    *Functional interface to allow lambdas that throw checked exceptions.
+    */
     @FunctionalInterface
     interface CheckedTransaction {
         void execute() throws Exception;
     }
 
+    /**
+    * Helper function to remove redundant inline exception handling
+    * (individual try catch on each call) on each test cases in Activity 1,
+    * can also be implemented on test cases in Activity 3 however we prioritize
+    * showing explicit inline handling for Activity 3.
+    */
     private static void tryTransaction(CheckedTransaction action) {
         try {
             action.execute();
@@ -24,7 +33,7 @@ public class App {
         BankAccount acc1 = new SavingsAccount("Test0");
         BankAccountManager manager = new BankAccountManager();
 
-        System.out.println("Activity 1 Test Cases");
+        System.out.println("============Activity 1 Test Cases============");
         if (acc1 instanceof SavingsAccount savingsAcc) {
             System.out.println("Account Owner: " + savingsAcc.getOwnerName() + ".");
         }
@@ -42,8 +51,14 @@ public class App {
         acc1.unfreezeAccount();
 
         tryTransaction(() -> acc1.withdraw(100));
+        
+        /**
+        * To clear the list so that the transactions from Activity 1
+        * do not spill over and display inside Activity 3's test cases.
+        */
+        acc1.getTransactionHistory().clear();
 
-        System.out.println("\nActivity 2 Test Cases");
+        System.out.println("\n============Activity 2 Test Cases============");
         // 2.1
         for (Transaction transaction : acc1.getTransactionHistory()) {
             System.out.println(transaction);
@@ -62,7 +77,7 @@ public class App {
         // 2.5
         accM1.listAccounts();
 
-        System.out.println("\nActivity 3 Test Cases\n");
+        System.out.println("\n===========Activity 3 Test Cases============\n");
         // 3.1
         try {
             acc1.deposit(-500);
@@ -105,6 +120,7 @@ public class App {
         acc1.unfreezeAccount();
 
         // 3.6
+        // Populate test dataset for filtering (Test 3.6) and sorting (Test 3.7)
         acc1.deposit(1000.125);
         acc1.withdraw(500.0);
         acc1.withdraw(100.0);
@@ -115,7 +131,7 @@ public class App {
             System.out.println(transaction);
         }
 
-        // Test 3.7
+        // 3.7
         System.out.println("\nSorting transactions by amount...");
         List<Transaction> sorted = manager.sortTransactionsByAmount(acc1.getTransactionHistory());
         for (Transaction transaction : sorted) {
