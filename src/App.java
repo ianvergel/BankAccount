@@ -54,7 +54,8 @@ public class App {
         
         /**
         * To clear the list so that the transactions from Activity 1
-        * do not spill over and display inside Activity 3's test cases.
+        * do not spill over and display inside Activity 3's test cases
+        * specifically (Test 3.6) and (Test 3.7).
         */
         acc1.getTransactionHistory().clear();
 
