@@ -1,33 +1,13 @@
 import java.util.List;
 
 import account.BankAccount;
+import account.BankAccountManager;
 import account.SavingsAccount;
 import account.Transaction;
-import account.BankAccountManager;
+
 
 public class App {
-
-    /**
-    *Functional interface to allow lambdas that throw checked exceptions.
-    */
-    @FunctionalInterface
-    interface CheckedTransaction {
-        void execute() throws Exception;
-    }
-
-    /**
-    * Helper function to remove redundant inline exception handling
-    * (individual try catch on each call) on each test cases in Activity 1,
-    * can also be implemented on test cases in Activity 3 however we prioritize
-    * showing explicit inline handling for Activity 3.
-    */
-    private static void tryTransaction(CheckedTransaction action) {
-        try {
-            action.execute();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+    private static final double TRANSACTION_FILTER_LIMIT = 200.0;
 
     public static void main(String[] args) throws Exception {
         BankAccount acc1 = new SavingsAccount("Test0");
@@ -35,22 +15,21 @@ public class App {
 
         System.out.println("============Activity 1 Test Cases============");
         if (acc1 instanceof SavingsAccount savingsAcc) {
-            System.out.println("Account Owner: " + savingsAcc.getOwnerName() + ".");
+            System.out.println
+            ("Account Owner: " + savingsAcc.getOwnerName() + ".");
         }
 
-        tryTransaction(() -> acc1.deposit(1000.125));
-        tryTransaction(() -> acc1.deposit(0));
-        tryTransaction(() -> acc1.deposit(-500));
-        tryTransaction(() -> acc1.withdraw(500));
-        tryTransaction(() -> acc1.withdraw(1500));
-        tryTransaction(() -> acc1.withdraw(-100));
-
+        acc1.deposit(1000.125);
+        acc1.deposit(0);
+        acc1.deposit(-500);
+        acc1.withdraw(500);
+        acc1.withdraw(1500);
+        acc1.withdraw(-100);
         acc1.freezeAccount();
-        tryTransaction(() -> acc1.deposit(11500));
-        tryTransaction(() -> acc1.withdraw(500));
+        acc1.deposit(11500);
+        acc1.withdraw(500);
         acc1.unfreezeAccount();
-
-        tryTransaction(() -> acc1.withdraw(100));
+        acc1.withdraw(100);
         
         /**
         * To clear the list so that the transactions from Activity 1
@@ -78,63 +57,47 @@ public class App {
         // 2.5
         accM1.listAccounts();
 
-        System.out.println("\n===========Activity 3 Test Cases============\n");
+        System.out.println
+        ("\n===========Activity 3 Test Cases============\n");
         // 3.1
-        try {
-            acc1.deposit(-500);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        acc1.deposit(-500);
 
         // 3.2
         acc1.freezeAccount();
-        try {
-            acc1.deposit(11500);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        acc1.deposit(11500);
         acc1.unfreezeAccount();
 
         // 3.3
-        try {
-            acc1.withdraw(-100);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        acc1.withdraw(-100);
 
         // 3.4
-        try {
-            acc1.withdraw(1500);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            System.out.printf("Current balance: %.2f%n\n", acc1.getBalance());
-        }
+        acc1.withdraw(1500);
 
         // 3.5
         acc1.freezeAccount();
-        try {
-            acc1.withdraw(500);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        acc1.withdraw(500);
         acc1.unfreezeAccount();
 
         // 3.6
-        // Populate test dataset for filtering (Test 3.6) and sorting (Test 3.7)
+        /** Populate test dataset for filtering
+        * (Test 3.6) and sorting (Test 3.7)
+        */
         acc1.deposit(1000.125);
         acc1.withdraw(500.0);
         acc1.withdraw(100.0);
 
-        System.out.println("\nFiltering transactions at or above 200...");
-        List<Transaction> filtered = manager.filterTransactionsAtOrAbove(200, acc1.getTransactionHistory());
+        System.out.println("\nFiltering transactions at or above "
+         + TRANSACTION_FILTER_LIMIT +"...");
+        List<Transaction> filtered = manager.filterTransactionsAtOrAbove
+        (TRANSACTION_FILTER_LIMIT, acc1.getTransactionHistory());
         for (Transaction transaction : filtered) {
             System.out.println(transaction);
         }
 
         // 3.7
         System.out.println("\nSorting transactions by amount...");
-        List<Transaction> sorted = manager.sortTransactionsByAmount(acc1.getTransactionHistory());
+        List<Transaction> sorted = manager.sortTransactionsByAmount
+        (acc1.getTransactionHistory());
         for (Transaction transaction : sorted) {
             System.out.println(transaction);
         }

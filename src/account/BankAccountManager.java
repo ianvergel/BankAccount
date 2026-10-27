@@ -25,7 +25,8 @@ public class BankAccountManager implements Bank {
     public void addAccount(BankAccount account) {
         if (accounts.size() >= MAX_ACCOUNTS) {
             System.out.println
-            ("Maximum account limit of 100 reached.Unable to add account.");
+            ("Maximum account limit of" + MAX_ACCOUNTS
+             +".Unable to add account.");
             return;
         }
         int assignedId = this.id++;

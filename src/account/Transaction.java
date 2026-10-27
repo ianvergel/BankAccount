@@ -1,7 +1,7 @@
 package account;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 /** Represents a transaction with a type, amount
  * and a timestamp of the said transaction
